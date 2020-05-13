@@ -58,7 +58,8 @@
                 @Html.DisplayFor(modelItem => item.Salary)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProfilePicture)
+                <img src="~/images/@item.ProfilePicture" class="rounded-circle" height="60" width="60" asp-append-version="true" />
+                @*@Html.DisplayFor(modelItem => item.ProfilePicture)*@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -61,4 +61,11 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script type="text/javascript">
+
+        // Para que o nome do arquivo apareca na caixa quando selecionado
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);});
+</script>
 }
