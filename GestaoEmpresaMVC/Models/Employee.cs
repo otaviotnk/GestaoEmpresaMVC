@@ -29,8 +29,10 @@ namespace GestaoEmpresaMVC.Models
         
         [DisplayName("Departamento")]
         public Department Department { get; set; }
+
         [Required(ErrorMessage = "Por favor, informe um salário válido")]
         [DisplayName("Salário")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         public double Salary { get; set; }
         [DisplayName("Foto")]
 

@@ -6,7 +6,6 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<h4>Funcionário</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -43,19 +42,14 @@
                 <input asp-for="Salary" class="form-control" />
                 <span asp-validation-for="Salary" class="text-danger"></span>
             </div>
-            @*Tentando acessar as imagens*@
+            @*Pesquisar como usar mais de um model na página*@
             @*<div class="form-group">
                 <label asp-for="ProfileImage" class="control-label"></label>
                 <div class="custom-file">
                     <input asp-for="ProfileImage" class="custom-file-input" id="customFile" />
                     <label class="custom-file-label" for="customFile">Escolher arquivo...</label>
                 </div>
-            </div>*@
-
-            @*<div class="form-group">
-                <label asp-for="ProfilePicture" class="control-label"></label>
-                <input asp-for="ProfilePicture" class="form-control" />
-                <span asp-validation-for="ProfilePicture" class="text-danger"></span>
+                <span asp-validation-for="ProfileImage" class="text-danger"></span>
             </div>*@
             <div class="form-group">
                 <input type="submit" value="Salvar" class="btn btn-success" />
