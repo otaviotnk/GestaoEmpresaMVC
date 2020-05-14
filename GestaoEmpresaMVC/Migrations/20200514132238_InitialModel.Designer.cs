@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestaoEmpresaMVC.Migrations
 {
     [DbContext(typeof(GestaoEmpresaMVCContext))]
-    [Migration("20200513185725_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20200514132238_InitialModel")]
+    partial class InitialModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,6 +58,7 @@ namespace GestaoEmpresaMVC.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProfilePicture")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Salary")

@@ -2,7 +2,7 @@
 
 namespace GestaoEmpresaMVC.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class InitialModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,7 +31,7 @@ namespace GestaoEmpresaMVC.Migrations
                     Gender = table.Column<string>(nullable: true),
                     DepartmentId = table.Column<int>(nullable: false),
                     Salary = table.Column<double>(nullable: false),
-                    ProfilePicture = table.Column<string>(nullable: true)
+                    ProfilePicture = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

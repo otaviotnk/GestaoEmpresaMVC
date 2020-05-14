@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using GestaoEmpresaMVC.Data;
+using GestaoEmpresaMVC.Models;
+using GestaoEmpresaMVC.Models.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using GestaoEmpresaMVC.Data;
-using GestaoEmpresaMVC.Models;
-using Microsoft.AspNetCore.Hosting;
-using GestaoEmpresaMVC.Models.ViewModels;
+using System;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace GestaoEmpresaMVC.Controllers
 {
@@ -59,7 +58,44 @@ namespace GestaoEmpresaMVC.Controllers
             return View();
         }
 
-        private string UploadedFile(EmployesViewModel model)
+        
+
+        // POST: Employees/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(EmployeesViewModel model)
+        /*[Bind("Id,FirstName,LastName,Age,Gender,DepartmentId,Salary,ProfilePicture")] Employee employee,*/
+        {
+            if (ModelState.IsValid)
+            {
+                string uniqueFileName = UploadedFile(model);
+
+                Employee employee = new Employee
+                {
+                    Age = model.Employee.Age,
+                    Department = model.Employee.Department,
+                    DepartmentId = model.Employee.DepartmentId,
+                    FirstName = model.Employee.FirstName,
+                    Gender = model.Employee.Gender,
+                    Id = model.Employee.Id,
+                    LastName = model.Employee.LastName,
+                    Salary = model.Employee.Salary,                    
+                    ProfilePicture = uniqueFileName,                    
+                };
+
+                _context.Add(employee);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            //ViewData["DepartmentId"] = new SelectList(_context.Department, "Id", "DepartmentName", employee.DepartmentId);
+            ViewData["DepartmentId"] = new SelectList(_context.Department, "Id", "DepartmentName", model.Employee.DepartmentId);
+            //return View(employee);
+            return View(model);
+        }
+
+        private string UploadedFile(EmployeesViewModel model)
         {
             string uniqueFileName = null;
 
@@ -74,38 +110,6 @@ namespace GestaoEmpresaMVC.Controllers
                 }
             }
             return uniqueFileName;
-        }
-
-        // POST: Employees/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Age,Gender,DepartmentId,Salary,ProfilePicture")] Employee employee, EmployesViewModel employesViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                string uniqueFileName = UploadedFile(employesViewModel);
-
-                Employee employee1 = new Employee
-                {
-                    Age = employesViewModel.Employee.Age,
-                    Department = employesViewModel.Employee.Department,
-                    DepartmentId = employesViewModel.Employee.DepartmentId,
-                    FirstName = employesViewModel.Employee.FirstName,
-                    Gender = employesViewModel.Employee.Gender,
-                    Id = employesViewModel.Employee.Id,
-                    LastName = employesViewModel.Employee.LastName,
-                    Salary = employesViewModel.Employee.Salary,                    
-                    ProfilePicture = uniqueFileName,
-                };
-
-                _context.Add(employee1);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["DepartmentId"] = new SelectList(_context.Department, "Id", "DepartmentName", employee.DepartmentId);
-            return View(employee);
         }
 
         // GET: Employees/Edit/5
