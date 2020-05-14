@@ -17,11 +17,14 @@ namespace GestaoEmpresaMVC.Models
         [Required(ErrorMessage = "Por favor, informe um sobrenome válido")]        
         [DisplayName("Sobrenome")]
         public string LastName { get; set; }
+
         [Required(ErrorMessage = "Por favor, informe uma idade")]
+        [Range(15, 99, ErrorMessage ="Por favor, Informe uma idade válida!")]
         [DisplayName("Idade")]
         public int Age { get; set; }
-        [Required(ErrorMessage = "Por favor, selecione o gênero")]
-        [DisplayName("Gênero")]
+
+        [Required(ErrorMessage = "Por favor, selecione o sexo")]
+        [DisplayName("Sexo")]
         public string Gender { get; set; }
         [DisplayName("Departamento")]
 

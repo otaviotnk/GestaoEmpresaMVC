@@ -3,8 +3,8 @@
 @{
     ViewData["Title"] = "Adicionar Funcionário";
 }
-
-    <h1>@ViewData["Title"]</h1>
+<hr />
+<h1>@ViewData["Title"]</h1>
 
 <hr />
 <div class="row">
@@ -13,22 +13,26 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Employee.FirstName" class="control-label"></label>
-                <input asp-for="Employee.FirstName" class="form-control" />
+                <input asp-for="Employee.FirstName" class="form-control" placeholder="Informe um nome" />
                 <span asp-validation-for="Employee.FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Employee.LastName" class="control-label"></label>
-                <input asp-for="Employee.LastName" class="form-control" />
+                <input asp-for="Employee.LastName" class="form-control" placeholder="Informe um sobrenome" />
                 <span asp-validation-for="Employee.LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Employee.Age" class="control-label"></label>
-                <input asp-for="Employee.Age" class="form-control" />
+                <input asp-for="Employee.Age" class="form-control" placeholder="Informe a idade" />
                 <span asp-validation-for="Employee.Age" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Employee.Gender" class="control-label"></label>
-                <input asp-for="Employee.Gender" class="form-control" />
+                <select asp-for="Employee.Gender" class="form-control">
+                    <option>Selecione</option>
+                    <option value="Masculino">♂ Masculino</option>
+                    <option value="Feminino">♀ Feminino</option>                    
+                </select>
                 <span asp-validation-for="Employee.Gender" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -37,7 +41,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Employee.Salary" class="control-label"></label>
-                <input asp-for="Employee.Salary" class="form-control" />
+                <input asp-for="Employee.Salary" class="moneyMask form-control" placeholder="R$ 0,00" />
                 <span asp-validation-for="Employee.Salary" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -60,6 +64,13 @@
 </div>
 
 @section Scripts {
+    <script src="~/lib/jquery/dist/jquery.mask.js"></script>
+    <script src="~/lib/jquery/dist/jquery.maskMoney.js"></script>
+    <script>        
+        $(document).ready(function () {
+            $(".moneyMask").maskMoney({ thousands: '.', decimal: ',', allowZero: true, prefix: 'R$ ' });
+        });
+    </script>
     <script type="text/javascript">
         // Para que o nome do arquivo apareca na caixa quando selecionado
         $(".custom-file-input").on("change", function () {
@@ -67,6 +78,4 @@
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
     </script>
-
-    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
 }

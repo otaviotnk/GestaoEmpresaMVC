@@ -39,18 +39,18 @@
             </div>
             <div class="form-group">
                 <label asp-for="Salary" class="control-label"></label>
-                <input asp-for="Salary" class="form-control" />
+                <input asp-for="Salary" class="moneyMask form-control" placeholder="R$ 0,00"/>
                 <span asp-validation-for="Salary" class="text-danger"></span>
             </div>
             @*Pesquisar como usar mais de um model na página*@
             @*<div class="form-group">
-                <label asp-for="ProfileImage" class="control-label"></label>
-                <div class="custom-file">
-                    <input asp-for="ProfileImage" class="custom-file-input" id="customFile" />
-                    <label class="custom-file-label" for="customFile">Escolher arquivo...</label>
-                </div>
-                <span asp-validation-for="ProfileImage" class="text-danger"></span>
-            </div>*@
+                    <label asp-for="ProfileImage" class="control-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="ProfileImage" class="custom-file-input" id="customFile" />
+                        <label class="custom-file-label" for="customFile">Escolher arquivo...</label>
+                    </div>
+                    <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                </div>*@
             <div class="form-group">
                 <input type="submit" value="Salvar" class="btn btn-success" />
             </div>
@@ -63,5 +63,13 @@
 </div>
 
 @section Scripts {
+    <script src="~/lib/jquery/dist/jquery.mask.js"></script>
+    <script src="~/lib/jquery/dist/jquery.maskMoney.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $(".moneyMask").maskMoney({thousands: '.', decimal: ',', allowZero: true, prefix: 'R$ '});
+        });
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
