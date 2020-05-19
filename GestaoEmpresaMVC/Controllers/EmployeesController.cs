@@ -26,17 +26,28 @@ namespace GestaoEmpresaMVC.Controllers
         }
 
         // GET: Employees
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         //public IActionResult Index(string sortOrder)
         {           
 
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_asc" : "";
+            ViewBag.NameSortParm = sortOrder == "name_desc"? "name_asc" : "name_desc";
             ViewBag.GenderSortParm = sortOrder == "gender_asc" ? "gender_desc" : "gender_asc";
-            ViewBag.DepartmentSortParm = String.IsNullOrEmpty(sortOrder) ? "department_desc" : "";
-            var employees = from e in _context.Employee.Include(d => d.Department) select e;            
+            ViewBag.DepartmentSortParm = sortOrder == "department_asc" ? "department_desc" : "department_asc";
+            var employees = from e in _context.Employee.Include(d => d.Department) select e;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                //A caixa de texto permite que você insira uma cadeia de
+                //caracteres a ser pesquisada nos campos nome e sobrenome.
+                employees = employees.Where(s => s.FirstName.Contains(searchString)
+                                       || s.LastName.Contains(searchString));
+            }
 
             switch (sortOrder)
-            {                
+            {
+                case "name_desc":
+                    employees = employees.OrderByDescending(e => e.FirstName);
+                    break;
                 case "name_asc":                    
                     employees = employees.OrderBy(e => e.FirstName);
                     break;
@@ -46,8 +57,11 @@ namespace GestaoEmpresaMVC.Controllers
                 case "gender_desc":
                     employees = employees.OrderByDescending(e => e.Gender);
                     break;
+                case "department_asc":
+                    employees = employees.OrderBy(e => e.Department.DepartmentName);
+                    break;
                 case "department_desc":
-                    employees = employees.OrderBy(e => e.Department.Id);
+                    employees = employees.OrderByDescending(e => e.Department.DepartmentName);
                     break;
                 default:
                     employees = employees.OrderBy(e => e.Id);
