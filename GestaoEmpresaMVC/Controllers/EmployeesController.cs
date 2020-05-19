@@ -26,10 +26,35 @@ namespace GestaoEmpresaMVC.Controllers
         }
 
         // GET: Employees
-        public async Task<IActionResult> Index()
-        {
-            var gestaoEmpresaMVCContext = _context.Employee.Include(e => e.Department);
-            return View(await gestaoEmpresaMVCContext.ToListAsync());
+        public async Task<IActionResult> Index(string sortOrder)
+        //public IActionResult Index(string sortOrder)
+        {           
+
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_asc" : "";
+            ViewBag.GenderSortParm = sortOrder == "gender_asc" ? "gender_desc" : "gender_asc";
+            ViewBag.DepartmentSortParm = String.IsNullOrEmpty(sortOrder) ? "department_desc" : "";
+            var employees = from e in _context.Employee.Include(d => d.Department) select e;            
+
+            switch (sortOrder)
+            {                
+                case "name_asc":                    
+                    employees = employees.OrderBy(e => e.FirstName);
+                    break;
+                case "gender_asc":
+                    employees = employees.OrderBy(e => e.Gender);
+                    break;
+                case "gender_desc":
+                    employees = employees.OrderByDescending(e => e.Gender);
+                    break;
+                case "department_desc":
+                    employees = employees.OrderBy(e => e.Department.Id);
+                    break;
+                default:
+                    employees = employees.OrderBy(e => e.Id);
+                    break;
+            }
+            //return View(employees.ToList());            
+            return View(await employees.ToListAsync());
         }
 
         // GET: Employees/Details/5
@@ -58,7 +83,7 @@ namespace GestaoEmpresaMVC.Controllers
             return View();
         }
 
-        
+
 
         // POST: Employees/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
@@ -81,8 +106,8 @@ namespace GestaoEmpresaMVC.Controllers
                     Gender = model.Employee.Gender,
                     Id = model.Employee.Id,
                     LastName = model.Employee.LastName,
-                    Salary = model.Employee.Salary,                    
-                    ProfilePicture = uniqueFileName,                    
+                    Salary = model.Employee.Salary,
+                    ProfilePicture = uniqueFileName,
                 };
 
                 _context.Add(employee);

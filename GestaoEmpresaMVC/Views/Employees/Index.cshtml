@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Lista de Funcionários";
 }
-
+<hr />
 <h1>@ViewData["Title"]</h1>
 
 <p>
@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.ProfilePicture)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                @Html.ActionLink("Nome", "Index", new { sortOrder = ViewBag.NameSortParm })
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.LastName)
@@ -25,10 +25,11 @@
                 @Html.DisplayNameFor(model => model.Age)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Gender)
+                @Html.ActionLink("Sexo", "Index", new { sortOrder = ViewBag.GenderSortParm })
+                @*@Html.DisplayNameFor(model => model.Gender)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Department)
+                @Html.ActionLink("Departamento", "Index", new { sortOrder = ViewBag.DepartmentSortParm })
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Salary)
@@ -41,7 +42,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <img src="~/images/@item.ProfilePicture" class="rounded-circle" height="60" width="60" asp-append-version="true" />
+                <img src="~/images/@item.ProfilePicture" class="rounded-circle" height="50" width="50" asp-append-version="true" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
