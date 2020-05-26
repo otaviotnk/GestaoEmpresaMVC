@@ -36,7 +36,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ProductName)
             </td>
-            <td>
+            <td style="width: 100ch">
                 @Html.DisplayFor(modelItem => item.ProductDescription)
             </td>
             <td>
@@ -46,7 +46,7 @@
                 @Html.DisplayFor(modelItem => item.ProductQuantity)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TypeProduct.Id)
+                @Html.DisplayFor(modelItem => item.TypeProduct.TypeProdName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
