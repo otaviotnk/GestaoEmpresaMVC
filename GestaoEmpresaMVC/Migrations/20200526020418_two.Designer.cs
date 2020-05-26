@@ -3,14 +3,16 @@ using GestaoEmpresaMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GestaoEmpresaMVC.Migrations
 {
     [DbContext(typeof(GestaoEmpresaMVCContext))]
-    partial class GestaoEmpresaMVCContextModelSnapshot : ModelSnapshot
+    [Migration("20200526020418_two")]
+    partial class two
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,19 +74,19 @@ namespace GestaoEmpresaMVC.Migrations
                     b.ToTable("Employee");
                 });
 
-            modelBuilder.Entity("GestaoEmpresaMVC.Models.TypeProduct", b =>
+            modelBuilder.Entity("GestaoEmpresaMVC.Models.ProductCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("TypeProdName")
+                    b.Property<string>("CategoryName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TypeProduct");
+                    b.ToTable("ProductCategory");
                 });
 
             modelBuilder.Entity("GestaoEmpresaMVC.Models.Employee", b =>
