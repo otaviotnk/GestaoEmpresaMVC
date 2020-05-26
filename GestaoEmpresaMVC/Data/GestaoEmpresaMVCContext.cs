@@ -20,5 +20,7 @@ namespace GestaoEmpresaMVC.Data
 
         public DbSet<GestaoEmpresaMVC.Models.TypeProduct> TypeProduct { get; set; }
 
+        public DbSet<GestaoEmpresaMVC.Models.Product> Product { get; set; }
+
     }
 }

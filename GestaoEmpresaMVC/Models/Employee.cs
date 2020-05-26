@@ -12,35 +12,35 @@ namespace GestaoEmpresaMVC.Models
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Por favor, informe um nome válido")]
         [DisplayName("Nome")]
+        [Required(ErrorMessage = "Por favor, informe um nome válido")]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "Por favor, informe um sobrenome válido")]        
         [DisplayName("Sobrenome")]
+        [Required(ErrorMessage = "Por favor, informe um sobrenome válido")]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "Por favor, informe uma idade")]
-        [Range(15, 99, ErrorMessage ="Por favor, Informe uma idade válida!")]
         [DisplayName("Idade")]
+        [Required(ErrorMessage = "Por favor, informe uma idade")]
+        [Range(15, 99, ErrorMessage = "Por favor, Informe uma idade válida!")]
         public int Age { get; set; }
 
-        [Required(ErrorMessage = "Por favor, selecione o sexo")]
         [DisplayName("Sexo")]
+        [Required(ErrorMessage = "Por favor, selecione o sexo")]
         public string Gender { get; set; }
 
         [DisplayName("Departamento")]
         public int DepartmentId { get; set; }
-        
+
         [DisplayName("Departamento")]
         public Department Department { get; set; }
 
-        [Required(ErrorMessage = "Por favor, informe um salário válido")]
         [DisplayName("Salário")]
+        [Required(ErrorMessage = "Por favor, informe um salário válido")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public double Salary { get; set; }
 
         [DisplayName("Foto")]
-        public string ProfilePicture { get; set; }        
+        public string ProfilePicture { get; set; }
     }
 }
