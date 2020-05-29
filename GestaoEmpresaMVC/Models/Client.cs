@@ -14,7 +14,6 @@ namespace GestaoEmpresaMVC.Models
         public string Gender { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public int SalesRecord { get; set; }
 
         //Propriedades de Endereco
         //Enderecço vem de outra classe pra utilizar a API? ou várias propriedades? Estado, Cidade, Rua....
