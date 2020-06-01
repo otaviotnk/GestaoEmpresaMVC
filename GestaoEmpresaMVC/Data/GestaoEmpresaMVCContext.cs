@@ -14,9 +14,9 @@ namespace GestaoEmpresaMVC.Data
         {
         }       
 
-        public DbSet<Department> Department { get; set; }
+        public DbSet<GestaoEmpresaMVC.Models.Department> Department { get; set; }
 
-        public DbSet<Employee> Employee { get; set; }
+        public DbSet<GestaoEmpresaMVC.Models.Employee> Employee { get; set; }
 
         public DbSet<GestaoEmpresaMVC.Models.TypeProduct> TypeProduct { get; set; }
 
