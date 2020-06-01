@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace GestaoEmpresaMVC.Controllers
@@ -28,9 +29,9 @@ namespace GestaoEmpresaMVC.Controllers
         // GET: Employees
         public async Task<IActionResult> Index(string sortOrder, string searchString)
         //public IActionResult Index(string sortOrder)
-        {           
+        {
 
-            ViewBag.NameSortParm = sortOrder == "name_desc"? "name_asc" : "name_desc";
+            ViewBag.NameSortParm = sortOrder == "name_desc" ? "name_asc" : "name_desc";
             ViewBag.GenderSortParm = sortOrder == "gender_asc" ? "gender_desc" : "gender_asc";
             ViewBag.DepartmentSortParm = sortOrder == "department_asc" ? "department_desc" : "department_asc";
             var employees = from e in _context.Employee.Include(d => d.Department) select e;
@@ -48,7 +49,7 @@ namespace GestaoEmpresaMVC.Controllers
                 case "name_desc":
                     employees = employees.OrderByDescending(e => e.FirstName);
                     break;
-                case "name_asc":                    
+                case "name_asc":
                     employees = employees.OrderBy(e => e.FirstName);
                     break;
                 case "gender_asc":

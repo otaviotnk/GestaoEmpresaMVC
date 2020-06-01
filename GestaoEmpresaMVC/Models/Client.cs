@@ -8,7 +8,7 @@ namespace GestaoEmpresaMVC.Models
     public class Client
     {
         public int Id { get; set; }
-        public int Cpf { get; set; }
+        public string Cpf { get; set; }
         public string Name { get; set; }
         public DateTime BirthDate { get; set; }
         public string Gender { get; set; }
@@ -17,7 +17,7 @@ namespace GestaoEmpresaMVC.Models
 
         //Propriedades de Endereco
         //Enderecço vem de outra classe pra utilizar a API? ou várias propriedades? Estado, Cidade, Rua....
-        public int Cep { get; set; }
+        public string Cep { get; set; }
         public string State { get; set; }
         public string City { get; set; }
         public string District { get; set; }
