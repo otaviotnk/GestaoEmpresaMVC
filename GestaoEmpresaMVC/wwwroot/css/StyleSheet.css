@@ -1,0 +1,43 @@
+﻿.tituloBlocos {
+    color: white;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.blocoVendas {
+    border-radius: 10px;
+    background-color: #F09175;
+    margin: 5px;
+}
+    .blocoVendas:hover {
+        background-color: #B06A56;
+    }
+
+.blocoFuncDepto {
+    border-radius: 10px;
+    margin: 5px;
+    background-color: #D68AFF;
+}
+    .blocoFuncDepto:hover {
+        background-color: #945FB0;
+    }
+
+.blocoProdutos {
+    border-radius: 10px;
+    margin: 5px;
+    background-color: #86D188;
+}
+    .blocoProdutos:hover {
+        background-color: #71B072;
+    }
+
+.blocoClientes {
+    border-radius: 10px;
+    margin: 5px;
+    background-color: #F0DC82;
+}
+    .blocoClientes:hover {
+        background-color: #B0A25F;
+    }
+
+

@@ -1,16 +1,48 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<link href="~/css/StyleSheet.css" rel="stylesheet" />
 
-    <div class="text-center">
-        <h1 class="display-4">Bem-Vindo!</h1>
-        <p>Projeto em ASP.NET MVC para testar conhecimentos</p>
-        <hr />
-        <h4>Contato</h4>
-        <hr />
-        <address>
-            <strong>Email:</strong> <a href="mailto:otavio.atr@gmail.com">otavio.atr@gmail.com</a>
-            <br />
-            <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/otavio-augusto-t-rockenbach-87a16b39">Otavio Rockenbach</a>
-        </address>
+<div class="text-center">
+    <h1 class="display-4">Bem-Vindo!</h1>
+    <p>Projeto em ASP.NET MVC para testar conhecimentos</p>
+    <hr />
+    <div class="row" style="justify-content:center">
+
+        <div class="col-md-3 blocoFuncDepto">
+            <h5 class="tituloBlocos">Funcionários e Departamentos</h5>
+            <hr />
+            <a class="nav-link" asp-area="" asp-controller="Departments" asp-action="Index">Departamentos</a>
+            <a class="nav-link" asp-area="" asp-controller="Employees" asp-action="Index">Funcionários</a>
+        </div>
+
+        <div class="col-md-3 blocoProdutos">
+            <h5 class="tituloBlocos">Produtos, Categorias e Tipos</h5>
+            <hr />
+            <a class="nav-link" asp-area="" asp-controller="TypeProducts" asp-action="Index">Categorias</a>
+            <a class="nav-link" asp-area="" asp-controller="Products" asp-action="Index">Produtos</a>
+            <a class="nav-link" asp-area="" asp-controller="TypeProducts" asp-action="Index">Tipo Produtos</a>
+        </div>
+
+        <div class="col-md-3 blocoClientes">
+            <h5 class="tituloBlocos">Clientes</h5>
+            <hr />
+            <a class="nav-link" asp-area="" asp-controller="Clients" asp-action="Index">Clientes</a>
+        </div>
+
+        <div class="col-md-3 blocoVendas">
+            <h5 class="tituloBlocos">Vendas</h5>
+            <h6 style="color:white">Em Construção</h6>
+        </div>
+
     </div>
+    <hr />
+
+    <h4>Contato</h4>
+    <hr />
+    <address>
+        <strong>Email:</strong> <a href="mailto:otavio.atr@gmail.com">otavio.atr@gmail.com</a>
+        <br />
+        <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/otavio-augusto-t-rockenbach-87a16b39">Otavio Rockenbach</a>
+    </address>
+</div>
