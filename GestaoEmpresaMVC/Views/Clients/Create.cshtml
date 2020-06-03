@@ -15,7 +15,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Cpf" class="control-label"></label>
-                <input asp-for="Cpf" class="form-control" />
+                <input asp-for="Cpf" class="CPF form-control" />
                 <span asp-validation-for="Cpf" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
+                <input asp-for="Phone" class="phone form-control" />
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -100,6 +100,13 @@
 @section Scripts {
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/jquery/dist/BuscaCep.js"></script>
+    <script src="~/lib/jquery/dist/CPFMask.js"></script>
+    <script src="~/lib/jquery/dist/PhoneMask.js"></script>
+    <script src="~/lib/jquery/dist/jquery.mask.js"></script>
+
+
+
+
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
