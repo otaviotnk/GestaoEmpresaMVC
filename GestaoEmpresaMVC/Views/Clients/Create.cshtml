@@ -1,10 +1,10 @@
 ﻿@model GestaoEmpresaMVC.Models.Client
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Adicionar Cliente";
 }
-
-<h1>Create</h1>
+<hr />
+    <h1>@ViewData["Title"]</h1>
 
 <hr />
 <form asp-action="Create">
@@ -15,12 +15,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Cpf" class="control-label"></label>
-                <input asp-for="Cpf" class="CPF form-control" />
+                <input asp-for="Cpf" class="CPF form-control" placeholder="CPF" />
                 <span asp-validation-for="Cpf" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control" placeholder="Insira um nome" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -30,63 +30,67 @@
             </div>
             <div class="form-group">
                 <label asp-for="Gender" class="control-label"></label>
-                <input asp-for="Gender" class="form-control" />
+                <select asp-for="Gender" class="form-control">
+                <option>Selecione</option>
+                <option value="Masculino">Masculino ♂</option>
+                <option value="Feminino">Feminino ♀</option>
+                </select>
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="phone form-control" />
+                <input asp-for="Phone" class="phone form-control" placeholder="(00) 00000-0000" />
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" class="form-control" placeholder="email@email.com" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
         </div>
         <div class="col-6">
             <div class="form-group">
                 <label asp-for="Cep" class="control-label"></label>
-                <input asp-for="Cep" class="form-control" id="cep" />
+                <input asp-for="Cep" class="form-control" id="cep" placeholder="00000-000"/>
                 <span asp-validation-for="Cep" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="State" class="control-label"></label>
-                <input id="estado" asp-for="State" class="form-control" />
+                <input id="estado" asp-for="State" class="form-control" placeholder="Estado" />
                 <span asp-validation-for="State" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="City" class="control-label"></label>
-                <input id="cidade" asp-for="City" class="form-control" />
+                <input id="cidade" asp-for="City" class="form-control" placeholder="Cidade"/>
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="District" class="control-label"></label>
-                <input id="bairro" asp-for="District" class="form-control" />
+                <input id="bairro" asp-for="District" class="form-control"  placeholder="Bairro"/>
                 <span asp-validation-for="District" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
-                <input id="logradouro" asp-for="Address" class="form-control" />
+                <input id="logradouro" asp-for="Address" class="form-control" placeholder="Rua, Avenida, Estrada..." />
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Number" class="control-label"></label>
-                <input asp-for="Number" class="form-control" />
+                <input asp-for="Number" class="form-control" placeholder="Número"/>
                 <span asp-validation-for="Number" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Complement" class="control-label"></label>
-                <input asp-for="Complement" class="form-control" />
+                <input asp-for="Complement" class="form-control" placeholder="Apartamento, Bloco, Conjunto..."/>
                 <span asp-validation-for="Complement" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Adicionar" class="btn btn-primary" />
             </div>
 
             <div>
-                <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+                <a class="btn btn-secondary" asp-action="Index">Voltar para a lista</a>
             </div>
 
 
@@ -102,6 +106,7 @@
     <script src="~/lib/jquery/dist/BuscaCep.js"></script>
     <script src="~/lib/jquery/dist/CPFMask.js"></script>
     <script src="~/lib/jquery/dist/PhoneMask.js"></script>
+    <script src="~/lib/jquery/dist/ValidaEmail.js"></script>
     <script src="~/lib/jquery/dist/jquery.mask.js"></script>
 
 

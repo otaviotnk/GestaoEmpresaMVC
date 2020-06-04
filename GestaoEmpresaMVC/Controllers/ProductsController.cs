@@ -21,7 +21,7 @@ namespace GestaoEmpresaMVC.Controllers
 
         // GET: Products
         public async Task<IActionResult> Index()
-        {
+        {     
             var gestaoEmpresaMVCContext = _context.Product.Include(p => p.TypeProduct);
             return View(await gestaoEmpresaMVCContext.ToListAsync());
         }

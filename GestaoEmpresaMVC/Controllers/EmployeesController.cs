@@ -28,12 +28,13 @@ namespace GestaoEmpresaMVC.Controllers
 
         // GET: Employees
         public async Task<IActionResult> Index(string sortOrder, string searchString)
-        //public IActionResult Index(string sortOrder)
+        
         {
 
             ViewBag.NameSortParm = sortOrder == "name_desc" ? "name_asc" : "name_desc";
             ViewBag.GenderSortParm = sortOrder == "gender_asc" ? "gender_desc" : "gender_asc";
             ViewBag.DepartmentSortParm = sortOrder == "department_asc" ? "department_desc" : "department_asc";
+
             var employees = from e in _context.Employee.Include(d => d.Department) select e;
 
             if (!String.IsNullOrEmpty(searchString))
