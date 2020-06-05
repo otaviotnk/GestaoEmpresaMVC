@@ -69,7 +69,6 @@ namespace GestaoEmpresaMVC.Controllers
                     employees = employees.OrderBy(e => e.Id);
                     break;
             }
-            //return View(employees.ToList());            
             return View(await employees.ToListAsync());
         }
 

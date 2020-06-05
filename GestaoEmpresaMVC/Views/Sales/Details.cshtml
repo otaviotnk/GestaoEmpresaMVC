@@ -1,0 +1,92 @@
+﻿@model GestaoEmpresaMVC.Models.Sale
+
+@{
+    ViewData["Title"] = "Detalhes da Venda";
+}
+<hr />
+<h1>@ViewData["Title"]</h1>
+
+<div>    
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Informações da Venda</h5>
+
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.SaleTime)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.SaleTime)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Employe)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Employe.FirstName)
+                    @Html.DisplayFor(model => model.Employe.LastName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Product)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Product.ProductName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Product.ProductPrice)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Product.ProductPrice)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <h5>Informações do Cliente</h5>
+            <dl>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Client.Name)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Client.Name)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Client.Cpf)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Client.Cpf)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Client.Phone)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Client.Phone)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Client.Email)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Client.Email)
+                </dd>
+                <dt class="col-sm-5">                    
+                    @Html.DisplayNameFor(model => model.Client.City) /
+                    @Html.DisplayNameFor(model => model.Client.State)
+
+                </dt>
+                <dd class="col-sm-5">
+                    @Html.DisplayFor(model => model.Client.City) /
+                    @Html.DisplayFor(model => model.Client.State)
+                </dd>
+                <dt class="col-sm-2">
+                </dt>
+                <dd class="col-sm-10">
+                    
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a class="btn btn-secondary" asp-action="Index">Voltar para a lista</a>
+</div>
+

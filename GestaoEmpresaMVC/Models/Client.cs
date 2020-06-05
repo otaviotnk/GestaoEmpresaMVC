@@ -20,6 +20,7 @@ namespace GestaoEmpresaMVC.Models
         public string Name { get; set; }
 
         [DisplayName("Data Nascimento")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime BirthDate { get; set; }
 
         [DisplayName("Sexo")]
