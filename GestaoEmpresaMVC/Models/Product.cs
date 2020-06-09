@@ -28,7 +28,6 @@ namespace GestaoEmpresaMVC.Models
         [Display(Name = "Categoria")]
         public int TypeProductId { get; set; }
 
-        [Required(ErrorMessage = "Por favor, informe uma categoria.")]
         [Display(Name = "Categoria")]
         public TypeProduct TypeProduct { get; set; } 
     }

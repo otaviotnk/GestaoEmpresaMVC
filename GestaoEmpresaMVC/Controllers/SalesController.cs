@@ -56,24 +56,40 @@ namespace GestaoEmpresaMVC.Controllers
             return View();
         }
 
+
         // POST: Sales/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SaleTime,EmployeeId,ProductId,ClientId")] Sale sale)
+        public async Task<IActionResult> Create([Bind("Id,SaleTime,EmployeeId,ProductId,ClientId, Quantity")] Sale sale)
         {
+
             if (ModelState.IsValid)
             {
-                _context.Add(sale);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //diminui o valor em estoque
+
+                var saleQuantity = sale.Quantity;
+                var prodQuantity = _context.Product.Where(e => e.Id == sale.ProductId).FirstOrDefault();
+
+                if (saleQuantity <= prodQuantity.ProductQuantity)
+                {
+                    prodQuantity.ProductQuantity -= saleQuantity;
+
+                    _context.Add(sale);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                ModelState.AddModelError("","A quantidade do pedido excede a quantidade em estoque");
             }
-            ViewData["ClientId"] = new SelectList(_context.Client, "Id", "Address", sale.ClientId);
+            //Colocar mensagem de erro
+
+            ViewData["ClientId"] = new SelectList(_context.Client, "Id", "Cpf", sale.ClientId);
             ViewData["EmployeeId"] = new SelectList(_context.Employee, "Id", "FirstName", sale.EmployeeId);
             ViewData["ProductId"] = new SelectList(_context.Product, "Id", "ProductName", sale.ProductId);
             return View(sale);
         }
+
 
         // GET: Sales/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -159,6 +175,11 @@ namespace GestaoEmpresaMVC.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var sale = await _context.Sale.FindAsync(id);
+
+            var saleQuantity = sale.Quantity;
+            var prodQuantity = _context.Product.Where(e => e.Id == sale.ProductId).FirstOrDefault();
+            prodQuantity.ProductQuantity += saleQuantity;
+
             _context.Sale.Remove(sale);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

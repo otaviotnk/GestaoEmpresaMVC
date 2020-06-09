@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestaoEmpresaMVC.Migrations
 {
     [DbContext(typeof(GestaoEmpresaMVCContext))]
-    [Migration("20200605021320_SalesAdd")]
-    partial class SalesAdd
+    [Migration("20200608191942_ClientCpf2")]
+    partial class ClientCpf2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -176,6 +176,9 @@ namespace GestaoEmpresaMVC.Migrations
 
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ClientId1")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");

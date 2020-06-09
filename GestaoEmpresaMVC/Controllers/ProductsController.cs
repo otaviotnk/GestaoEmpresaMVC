@@ -59,12 +59,13 @@ namespace GestaoEmpresaMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ProductName,ProductDescription,ProductPrice,ProductQuantity,TypeProductId")] Product product)
         {
+            //Não está entrando no IF
             if (ModelState.IsValid)
             {
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }        
+            }
             ViewData["TypeProductId"] = new SelectList(_context.TypeProduct, "Id", "TypeProdName", product.TypeProductId);
             return View(product);
         }

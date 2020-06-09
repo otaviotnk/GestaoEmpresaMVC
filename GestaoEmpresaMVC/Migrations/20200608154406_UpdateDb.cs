@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GestaoEmpresaMVC.Migrations
 {
-    public partial class NewDb : Migration
+    public partial class UpdateDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,17 +13,17 @@ namespace GestaoEmpresaMVC.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Cpf = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    Cpf = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     BirthDate = table.Column<DateTime>(nullable: false),
-                    Gender = table.Column<string>(nullable: true),
-                    Phone = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    Cep = table.Column<int>(nullable: false),
-                    State = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
-                    District = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: false),
+                    Phone = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
+                    Cep = table.Column<string>(maxLength: 9, nullable: false),
+                    State = table.Column<string>(nullable: false),
+                    City = table.Column<string>(nullable: false),
+                    District = table.Column<string>(nullable: false),
+                    Address = table.Column<string>(nullable: false),
                     Number = table.Column<int>(nullable: false),
                     Complement = table.Column<string>(nullable: true)
                 },
@@ -89,7 +89,7 @@ namespace GestaoEmpresaMVC.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductName = table.Column<string>(nullable: true),
+                    ProductName = table.Column<string>(nullable: false),
                     ProductDescription = table.Column<string>(nullable: true),
                     ProductPrice = table.Column<double>(nullable: false),
                     ProductQuantity = table.Column<int>(nullable: false),
@@ -106,6 +106,40 @@ namespace GestaoEmpresaMVC.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Sale",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SaleTime = table.Column<DateTime>(nullable: false),
+                    EmployeeId = table.Column<int>(nullable: false),
+                    ProductId = table.Column<int>(nullable: false),
+                    ClientId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sale", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sale_Client_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Client",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Sale_Employee_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employee",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Sale_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Employee_DepartmentId",
                 table: "Employee",
@@ -115,10 +149,28 @@ namespace GestaoEmpresaMVC.Migrations
                 name: "IX_Product_TypeProductId",
                 table: "Product",
                 column: "TypeProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sale_ClientId",
+                table: "Sale",
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sale_EmployeeId",
+                table: "Sale",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sale_ProductId",
+                table: "Sale",
+                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Sale");
+
             migrationBuilder.DropTable(
                 name: "Client");
 
