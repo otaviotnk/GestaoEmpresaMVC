@@ -38,7 +38,7 @@ namespace GestaoEmpresaMVC.Models
         [DisplayName("Salário")]
         [Required(ErrorMessage = "Por favor, informe um salário válido")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
-        public double Salary { get; set; }
+        public decimal Salary { get; set; }
 
         [DisplayName("Foto")]
         public string ProfilePicture { get; set; }

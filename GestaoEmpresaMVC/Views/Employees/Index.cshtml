@@ -6,16 +6,24 @@
 <hr />
 <h1>@ViewData["Title"]</h1>
 
-<p>
-    <a class="btn btn-info" asp-action="Create">Adicionar Funcionário</a>
-</p>
-@using (Html.BeginForm())
-{
-    <p>
-        Pesquisar Funcionário: @Html.TextBox("SearchString")
-        <input class="btn btn-dark" type="submit" value="Pesquisar" />
-    </p>
-}
+<div class="row" style="padding-bottom:10px">
+    <div class="col-md-6">
+        <a class="btn btn-info" asp-action="Create">Adicionar Funcionário</a>
+    </div>
+    <div class="col-md-6">
+        <form class="form-inline">
+
+            @using (Html.BeginForm())
+            {
+                <div class="form-group">
+                    @Html.TextBox("SearchString", null, new { @class = "form-control", placeholder = "Pesquisar Nome, Cargo..." })
+                </div>
+
+                <input class="btn btn-secondary" type="submit" value="Pesquisar" />                
+            }
+        </form>
+    </div>
+</div>
 <table class="table">
     <thead>
         <tr>

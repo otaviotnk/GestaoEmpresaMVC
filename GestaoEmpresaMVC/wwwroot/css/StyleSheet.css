@@ -41,4 +41,16 @@
         background-color: #B0A25F;
     }
 
+.selectDisabled {
+    background-color: transparent;
+    border-color: transparent;
+    overflow: hidden;
+    border: 0px solid white;
+    font-size: large;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-weight: bold;
+    text-align:end;
+    
+}
 

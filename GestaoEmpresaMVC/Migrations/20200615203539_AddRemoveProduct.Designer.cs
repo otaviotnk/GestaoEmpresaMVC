@@ -4,14 +4,16 @@ using GestaoEmpresaMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GestaoEmpresaMVC.Migrations
 {
     [DbContext(typeof(GestaoEmpresaMVCContext))]
-    partial class GestaoEmpresaMVCContextModelSnapshot : ModelSnapshot
+    [Migration("20200615203539_AddRemoveProduct")]
+    partial class AddRemoveProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -201,29 +203,6 @@ namespace GestaoEmpresaMVC.Migrations
                     b.ToTable("Sale");
                 });
 
-            modelBuilder.Entity("GestaoEmpresaMVC.Models.Stock", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Stock");
-                });
-
             modelBuilder.Entity("GestaoEmpresaMVC.Models.TypeProduct", b =>
                 {
                     b.Property<int>("Id")
@@ -271,15 +250,6 @@ namespace GestaoEmpresaMVC.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GestaoEmpresaMVC.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GestaoEmpresaMVC.Models.Stock", b =>
-                {
                     b.HasOne("GestaoEmpresaMVC.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")

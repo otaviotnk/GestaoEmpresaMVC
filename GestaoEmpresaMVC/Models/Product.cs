@@ -19,7 +19,7 @@ namespace GestaoEmpresaMVC.Models
 
         [Display(Name = "Valor")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
-        public double ProductPrice { get; set; }
+        public decimal ProductPrice { get; set; }
 
         [Display(Name = "Quantidade")]
         public int ProductQuantity { get; set; }
@@ -29,6 +29,6 @@ namespace GestaoEmpresaMVC.Models
         public int TypeProductId { get; set; }
 
         [Display(Name = "Categoria")]
-        public TypeProduct TypeProduct { get; set; } 
+        public TypeProduct TypeProduct { get; set; }         
     }
 }

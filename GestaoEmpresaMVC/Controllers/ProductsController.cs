@@ -18,10 +18,10 @@ namespace GestaoEmpresaMVC.Controllers
         {
             _context = context;
         }
-
+       
         // GET: Products
         public async Task<IActionResult> Index()
-        {        
+        {
             var gestaoEmpresaMVCContext = _context.Product.Include(p => p.TypeProduct);
             return View(await gestaoEmpresaMVCContext.ToListAsync());
         }
@@ -47,7 +47,7 @@ namespace GestaoEmpresaMVC.Controllers
 
         // GET: Products/Create
         public IActionResult Create()
-        {            
+        {
             ViewData["TypeProductId"] = new SelectList(_context.TypeProduct, "Id", "TypeProdName");
             return View();
         }
@@ -59,7 +59,6 @@ namespace GestaoEmpresaMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ProductName,ProductDescription,ProductPrice,ProductQuantity,TypeProductId")] Product product)
         {
-            //Não está entrando no IF
             if (ModelState.IsValid)
             {
                 _context.Add(product);
@@ -82,7 +81,7 @@ namespace GestaoEmpresaMVC.Controllers
             if (product == null)
             {
                 return NotFound();
-            }            
+            }
             ViewData["TypeProductId"] = new SelectList(_context.TypeProduct, "Id", "TypeProdName", product.TypeProductId);
             return View(product);
         }
@@ -118,7 +117,7 @@ namespace GestaoEmpresaMVC.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }            
+            }
             ViewData["TypeProductId"] = new SelectList(_context.TypeProduct, "Id", "TypeProdName", product.TypeProductId);
             return View(product);
         }

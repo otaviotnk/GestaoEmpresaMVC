@@ -26,5 +26,8 @@ namespace GestaoEmpresaMVC.Data
 
         public DbSet<GestaoEmpresaMVC.Models.Sale> Sale { get; set; }
 
+        public DbSet<GestaoEmpresaMVC.Models.Stock> Stock { get; set; }
+       
+
     }
 }

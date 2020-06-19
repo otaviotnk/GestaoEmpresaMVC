@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GestaoEmpresaMVC.Data;
 using GestaoEmpresaMVC.Models;
+using GestaoEmpresaMVC.Migrations;
+using Microsoft.Extensions.Logging;
 
 namespace GestaoEmpresaMVC.Controllers
 {
@@ -62,53 +64,50 @@ namespace GestaoEmpresaMVC.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SaleTime,EmployeeId,ProductId,ClientId, Quantity")] Sale sale)
+        public async Task<IActionResult> Create([Bind("Id,SaleTime,EmployeeId,ProductId,ClientId, Quantity, TotalAmount")] Sale sale)
         {
 
             if (ModelState.IsValid)
             {
-                //diminui o valor em estoque
-
+                //diminui o valor em estoque                
                 var saleQuantity = sale.Quantity;
-                var prodQuantity = _context.Product.Where(e => e.Id == sale.ProductId).FirstOrDefault();
-
-                if (saleQuantity <= prodQuantity.ProductQuantity)
+                var prod = _context.Product.Where(p => p.Id == sale.ProductId).FirstOrDefault();
+                if (saleQuantity <= prod.ProductQuantity)
                 {
-                    prodQuantity.ProductQuantity -= saleQuantity;
-
+                    prod.ProductQuantity -= saleQuantity;
+                    sale.TotalAmount = prod.ProductPrice * saleQuantity;
                     _context.Add(sale);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
-                ModelState.AddModelError("","A quantidade do pedido excede a quantidade em estoque");
+                ModelState.AddModelError("", "A quantidade do pedido excede a quantidade em estoque");
             }
-            //Colocar mensagem de erro
 
-            ViewData["ClientId"] = new SelectList(_context.Client, "Id", "Cpf", sale.ClientId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employee, "Id", "FirstName", sale.EmployeeId);
-            ViewData["ProductId"] = new SelectList(_context.Product, "Id", "ProductName", sale.ProductId);
-            return View(sale);
-        }
+                ViewData["ClientId"] = new SelectList(_context.Client, "Id", "Cpf", sale.ClientId);
+                ViewData["EmployeeId"] = new SelectList(_context.Employee, "Id", "FirstName", sale.EmployeeId);
+                ViewData["ProductId"] = new SelectList(_context.Product, "Id", "ProductName", sale.ProductId);
+                return View(sale);
+            }
 
 
-        // GET: Sales/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
+            // GET: Sales/Edit/5
+            public async Task<IActionResult> Edit(int? id)
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var sale = await _context.Sale.FindAsync(id);
-            if (sale == null)
-            {
-                return NotFound();
+                var sale = await _context.Sale.FindAsync(id);
+                if (sale == null)
+                {
+                    return NotFound();
+                }
+                ViewData["ClientId"] = new SelectList(_context.Client, "Id", "Address", sale.ClientId);
+                ViewData["EmployeeId"] = new SelectList(_context.Employee, "Id", "FirstName", sale.EmployeeId);
+                ViewData["ProductId"] = new SelectList(_context.Product, "Id", "ProductName", sale.ProductId);
+                return View(sale);
             }
-            ViewData["ClientId"] = new SelectList(_context.Client, "Id", "Address", sale.ClientId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employee, "Id", "FirstName", sale.EmployeeId);
-            ViewData["ProductId"] = new SelectList(_context.Product, "Id", "ProductName", sale.ProductId);
-            return View(sale);
-        }
 
         // POST: Sales/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
@@ -177,8 +176,8 @@ namespace GestaoEmpresaMVC.Controllers
             var sale = await _context.Sale.FindAsync(id);
 
             var saleQuantity = sale.Quantity;
-            var prodQuantity = _context.Product.Where(e => e.Id == sale.ProductId).FirstOrDefault();
-            prodQuantity.ProductQuantity += saleQuantity;
+            var prod = _context.Product.Where(p => p.Id == sale.ProductId).FirstOrDefault();
+            prod.ProductQuantity += saleQuantity;
 
             _context.Sale.Remove(sale);
             await _context.SaveChangesAsync();
