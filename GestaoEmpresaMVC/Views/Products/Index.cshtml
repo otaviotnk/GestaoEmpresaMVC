@@ -7,10 +7,9 @@
 <h1>@ViewData["Title"]</h1>
 
 <p>
-    <a class="btn btn-info" asp-action="Create">Adicionar Produto</a>
-    <a id="" class="btnAddRemove btn btn-light">Adicionar/Remover Produto</a>
+    <a class="btn btn-info" asp-action="Create">Cadastrar Produto</a>
+    <a id="" class="btnAddRemove btn btn-secondary">Alterar Preço/Estoque</a>
 </p>
-
 
 <table class="table">
     <thead>
@@ -88,7 +87,7 @@
                         $('#productModal').modal("show");
                     }
                 );
-            });        
+            });
         });
     </script>
 }
