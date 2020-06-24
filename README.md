@@ -1,5 +1,5 @@
 # GestaoEmpresaMVC
-Projeto ASP.NET MVC para testar conhecimentos na linguagem C# e no ambiente .NET
+Projeto ASP.NET MVC com constantes alterações para testar conhecimentos na linguagem C# e no ambiente .NET
 
 Algumas características da aplicação:
 -Relacionamentos 1:N e N:N
