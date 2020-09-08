@@ -39,8 +39,6 @@ namespace GestaoEmpresaMVC.Models
 
         [DisplayName("Valor Total")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
-        public decimal TotalAmount { get; set; }
-
-
+        public decimal TotalAmount { get; set; }        
     }
 }

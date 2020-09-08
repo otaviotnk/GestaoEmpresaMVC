@@ -69,13 +69,14 @@ namespace GestaoEmpresaMVC.Controllers
 
             if (ModelState.IsValid)
             {
-                //diminui o valor em estoque                
+                //Subtrai a quantidade do produto em estoque
                 var saleQuantity = sale.Quantity;
                 var prod = _context.Product.Where(p => p.Id == sale.ProductId).FirstOrDefault();
                 if (saleQuantity <= prod.ProductQuantity)
                 {
-                    prod.ProductQuantity -= saleQuantity;
+                    prod.ProductQuantity -= saleQuantity;                   
                     sale.TotalAmount = prod.ProductPrice * saleQuantity;
+
                     _context.Add(sale);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));

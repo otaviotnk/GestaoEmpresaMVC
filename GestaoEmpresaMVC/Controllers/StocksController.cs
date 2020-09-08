@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GestaoEmpresaMVC.Data;
 using GestaoEmpresaMVC.Models;
+using System.IO;
+using Microsoft.AspNetCore.SignalR.Protocol;
 
 namespace GestaoEmpresaMVC.Controllers
 {
@@ -18,7 +20,6 @@ namespace GestaoEmpresaMVC.Controllers
         {
             _context = context;
         }
-
         public IActionResult AddRemoveProduct()
         {
             ViewData["ProductName"] = new SelectList(_context.Product, "Id", "ProductName");
@@ -38,6 +39,7 @@ namespace GestaoEmpresaMVC.Controllers
 
                 var prod = _context.Product.Where(p => p.Id == stock.ProductId).FirstOrDefault();
 
+                //Se algum input foi preenchido
                 if (quantityChange != 0 || priceChange > 0)
                 {
                     if (quantityChange != 0)
@@ -50,21 +52,39 @@ namespace GestaoEmpresaMVC.Controllers
                         prod.ProductPrice = priceChange;
                     }
 
+                    //Se o estoque foi alterado e está > 0
                     if (prod.ProductQuantity >= 0)
                     {
                         _context.Add(stock);
                         await _context.SaveChangesAsync();
-                        return Json("T");
+                        return Json(true);
                     }
                 }
             }
-
             ViewData["ProductName"] = new SelectList(_context.Product, "Id", "ProductName");
             ViewData["ProductQuantity"] = new SelectList(_context.Product, "Id", "ProductQuantity");
             ViewData["ProductPrice"] = new SelectList(_context.Product, "Id", "ProductPrice");
+            return Json(false);
+            
+        }
 
-            //return RedirectToAction("Index", "Products");            
-            return Json("F");
+        public async Task<IActionResult> Details(int? id)
+        {
+            id = 20;
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var stock = await _context.Stock
+                .Include(p => p.Product)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (stock == null)
+            {
+                return NotFound();
+            }
+
+            return View(stock);
         }
     }
 }
