@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using GestaoEmpresaMVC.Data;
+using GestaoEmpresaMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using GestaoEmpresaMVC.Data;
-using GestaoEmpresaMVC.Models;
-using System.IO;
-using Microsoft.AspNetCore.SignalR.Protocol;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace GestaoEmpresaMVC.Controllers
 {
@@ -65,7 +61,7 @@ namespace GestaoEmpresaMVC.Controllers
             ViewData["ProductQuantity"] = new SelectList(_context.Product, "Id", "ProductQuantity");
             ViewData["ProductPrice"] = new SelectList(_context.Product, "Id", "ProductPrice");
             return Json(false);
-            
+
         }
 
         public async Task<IActionResult> Details(int? id)

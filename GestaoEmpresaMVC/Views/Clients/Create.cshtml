@@ -102,12 +102,14 @@
 
 
 @section Scripts {
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/jquery/dist/BuscaCep.js"></script>
-    <script src="~/lib/jquery/dist/CPFMask.js"></script>
-    <script src="~/lib/jquery/dist/PhoneMask.js"></script>
-    <script src="~/lib/jquery/dist/ValidaEmail.js"></script>
-    <script src="~/lib/jquery/dist/jquery.mask.js"></script>
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/BuscaCep.js"></script>
+<script src="~/lib/jquery/dist/CPFMask.js"></script>
+<script src="~/lib/jquery/dist/PhoneMask.js"></script>
+<script src="~/lib/jquery/dist/ValidaEmail.js"></script>
+<script src="~/lib/jquery/dist/jquery.mask.js"></script>
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
 }
 

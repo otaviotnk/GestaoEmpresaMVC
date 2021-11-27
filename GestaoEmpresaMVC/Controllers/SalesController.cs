@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using GestaoEmpresaMVC.Data;
+using GestaoEmpresaMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using GestaoEmpresaMVC.Data;
-using GestaoEmpresaMVC.Models;
-using GestaoEmpresaMVC.Migrations;
-using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace GestaoEmpresaMVC.Controllers
 {
@@ -24,8 +20,8 @@ namespace GestaoEmpresaMVC.Controllers
         // GET: Sales
         public async Task<IActionResult> Index()
         {
-            var gestaoEmpresaMVCContext = _context.Sale.Include(s => s.Client).Include(s => s.Employe).Include(s => s.Product);
-            return View(await gestaoEmpresaMVCContext.ToListAsync());
+            var sales = await _context.Sale.Include(s => s.Client).Include(s => s.Employe).Include(s => s.Product).ToListAsync();
+            return View(sales);
         }
 
         // GET: Sales/Details/5
@@ -74,7 +70,7 @@ namespace GestaoEmpresaMVC.Controllers
                 var prod = _context.Product.Where(p => p.Id == sale.ProductId).FirstOrDefault();
                 if (saleQuantity <= prod.ProductQuantity)
                 {
-                    prod.ProductQuantity -= saleQuantity;                   
+                    prod.ProductQuantity -= saleQuantity;
                     sale.TotalAmount = prod.ProductPrice * saleQuantity;
 
                     _context.Add(sale);
@@ -84,31 +80,31 @@ namespace GestaoEmpresaMVC.Controllers
                 ModelState.AddModelError("", "A quantidade do pedido excede a quantidade em estoque");
             }
 
-                ViewData["ClientId"] = new SelectList(_context.Client, "Id", "Cpf", sale.ClientId);
-                ViewData["EmployeeId"] = new SelectList(_context.Employee, "Id", "FirstName", sale.EmployeeId);
-                ViewData["ProductId"] = new SelectList(_context.Product, "Id", "ProductName", sale.ProductId);
-                return View(sale);
-            }
+            ViewData["ClientId"] = new SelectList(_context.Client, "Id", "Cpf", sale.ClientId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employee, "Id", "FirstName", sale.EmployeeId);
+            ViewData["ProductId"] = new SelectList(_context.Product, "Id", "ProductName", sale.ProductId);
+            return View(sale);
+        }
 
 
-            // GET: Sales/Edit/5
-            public async Task<IActionResult> Edit(int? id)
+        // GET: Sales/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
             {
-                if (id == null)
-                {
-                    return NotFound();
-                }
-
-                var sale = await _context.Sale.FindAsync(id);
-                if (sale == null)
-                {
-                    return NotFound();
-                }
-                ViewData["ClientId"] = new SelectList(_context.Client, "Id", "Address", sale.ClientId);
-                ViewData["EmployeeId"] = new SelectList(_context.Employee, "Id", "FirstName", sale.EmployeeId);
-                ViewData["ProductId"] = new SelectList(_context.Product, "Id", "ProductName", sale.ProductId);
-                return View(sale);
+                return NotFound();
             }
+
+            var sale = await _context.Sale.FindAsync(id);
+            if (sale == null)
+            {
+                return NotFound();
+            }
+            ViewData["ClientId"] = new SelectList(_context.Client, "Id", "Address", sale.ClientId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employee, "Id", "FirstName", sale.EmployeeId);
+            ViewData["ProductId"] = new SelectList(_context.Product, "Id", "ProductName", sale.ProductId);
+            return View(sale);
+        }
 
         // POST: Sales/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 

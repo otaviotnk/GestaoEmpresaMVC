@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using GestaoEmpresaMVC.Data;
+using GestaoEmpresaMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using GestaoEmpresaMVC.Data;
-using GestaoEmpresaMVC.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace GestaoEmpresaMVC.Controllers
 {
@@ -18,12 +16,12 @@ namespace GestaoEmpresaMVC.Controllers
         {
             _context = context;
         }
-       
+
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var gestaoEmpresaMVCContext = _context.Product.Include(p => p.TypeProduct);
-            return View(await gestaoEmpresaMVCContext.ToListAsync());
+            var products = await _context.Product.Include(p => p.TypeProduct).ToListAsync();
+            return View(products);
         }
 
         // GET: Products/Details/5

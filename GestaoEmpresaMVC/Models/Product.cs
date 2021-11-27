@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace GestaoEmpresaMVC.Models
 {
@@ -29,6 +25,6 @@ namespace GestaoEmpresaMVC.Models
         public int TypeProductId { get; set; }
 
         [Display(Name = "Categoria")]
-        public TypeProduct TypeProduct { get; set; }         
+        public TypeProduct TypeProduct { get; set; }
     }
 }

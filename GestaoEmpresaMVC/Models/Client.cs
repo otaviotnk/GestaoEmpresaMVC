@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GestaoEmpresaMVC.Models
 {
@@ -30,7 +27,7 @@ namespace GestaoEmpresaMVC.Models
         [DisplayName("Telefone")]
         [Required(ErrorMessage = "Informe um número de telefone.")]
         public string Phone { get; set; }
-        
+
         [DisplayName("E-mail")]
         [Required]
         [DataType(DataType.EmailAddress, ErrorMessage = "DDDDD")]

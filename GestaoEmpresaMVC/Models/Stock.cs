@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace GestaoEmpresaMVC.Models
+﻿namespace GestaoEmpresaMVC.Models
 {
     public class Stock
     {

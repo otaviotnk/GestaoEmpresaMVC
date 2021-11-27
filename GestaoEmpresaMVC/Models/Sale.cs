@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GestaoEmpresaMVC.Models
 {
@@ -13,7 +9,7 @@ namespace GestaoEmpresaMVC.Models
         [DisplayName("Código")]
         public int Id { get; set; }
 
-        [DisplayName ("Data/Hora")]
+        [DisplayName("Data/Hora")]
         public DateTime SaleTime { get; set; }
 
         [DisplayName("Vendedor")]
@@ -39,6 +35,6 @@ namespace GestaoEmpresaMVC.Models
 
         [DisplayName("Valor Total")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
-        public decimal TotalAmount { get; set; }        
+        public decimal TotalAmount { get; set; }
     }
 }

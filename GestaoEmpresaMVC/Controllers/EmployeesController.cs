@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace GestaoEmpresaMVC.Controllers
@@ -28,14 +27,14 @@ namespace GestaoEmpresaMVC.Controllers
 
         // GET: Employees
         public async Task<IActionResult> Index(string sortOrder, string searchString)
-        
+
         {
 
             ViewBag.NameSortParm = sortOrder == "name_desc" ? "name_asc" : "name_desc";
             ViewBag.GenderSortParm = sortOrder == "gender_asc" ? "gender_desc" : "gender_asc";
             ViewBag.DepartmentSortParm = sortOrder == "department_asc" ? "department_desc" : "department_asc";
 
-            var employees = from e in _context.Employee.Include(d => d.Department) select e;
+            IQueryable<Employee> employees = _context.Employee.Include(x => x.Department).AsNoTracking().AsQueryable();
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -69,7 +68,8 @@ namespace GestaoEmpresaMVC.Controllers
                     employees = employees.OrderBy(e => e.Id);
                     break;
             }
-            return View(await employees.ToListAsync());
+            await employees.ToListAsync();
+            return View(employees);
         }
 
         // GET: Employees/Details/5
@@ -106,8 +106,8 @@ namespace GestaoEmpresaMVC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(EmployeesViewModel model)
-        /*[Bind("Id,FirstName,LastName,Age,Gender,DepartmentId,Salary,ProfilePicture")] Employee employee,*/
         {
+            var salary = model.Employee.Salary;
             if (ModelState.IsValid)
             {
                 string uniqueFileName = UploadedFile(model);
@@ -115,7 +115,6 @@ namespace GestaoEmpresaMVC.Controllers
                 Employee employee = new Employee
                 {
                     Age = model.Employee.Age,
-                    Department = model.Employee.Department,
                     DepartmentId = model.Employee.DepartmentId,
                     FirstName = model.Employee.FirstName,
                     Gender = model.Employee.Gender,
